@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { site, whatsappUrl } from "@/lib/site";
 
@@ -19,30 +18,35 @@ const nav = [
 ];
 
 export function Footer() {
+  const year = 2026;
+
   return (
-    <footer className="border-t border-white/10 bg-navy-950 text-white">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-5 md:grid-cols-4 md:px-8">
-        <div>
-          <Image
-            src="/logo-secundaria.png"
-            alt={site.name}
-            width={240}
-            height={64}
-            className="h-12 w-auto object-contain"
-          />
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/75">
-            {site.tagline}. Atendimento em Adrianópolis, Manaus.
+    <footer className="border-t border-olive-700/15 bg-olive-950 text-cream">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:gap-10 sm:px-5 sm:py-14 md:grid-cols-4 md:px-8">
+        <div className="md:col-span-1">
+          <p className="font-serif text-[1.75rem] tracking-wide sm:text-3xl">
+            {site.name}
+          </p>
+          <p className="mt-2 text-xs uppercase tracking-[0.24em] text-cream/70">
+            {site.tagline}
+          </p>
+          <p className="mt-5 max-w-sm text-sm leading-relaxed text-cream/80">
+            Cardiologia e Pediatria em Manaus, com acolhimento e orientação
+            clara no Cond. Mundi.
           </p>
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-mint">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-cream/70">
             Navegação
           </h2>
-          <ul className="mt-4 space-y-2 text-sm text-white/85">
+          <ul className="mt-4 space-y-2 text-sm text-cream/90">
             {nav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="hover:text-mint">
+                <Link
+                  href={item.href}
+                  className="underline-offset-4 hover:underline"
+                >
                   {item.label}
                 </Link>
               </li>
@@ -51,52 +55,78 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-mint">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-cream/70">
             Contato
           </h2>
-          <ul className="mt-4 space-y-2 text-sm text-white/85">
+          <ul className="mt-4 space-y-2 text-sm text-cream/90">
             <li>
-              <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer">
-                WhatsApp {site.phoneDisplay}
+              <a href={`tel:+${site.phoneE164}`} className="hover:underline">
+                {site.phoneDisplay}
               </a>
             </li>
             <li>
-              <a href={`mailto:${site.email}`} className="break-all">
+              <a href={`mailto:${site.email}`} className="break-all hover:underline">
                 {site.email}
               </a>
             </li>
-            <li>{site.address.full}</li>
+            <li>
+              <a
+                href={whatsappUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                WhatsApp
+              </a>
+            </li>
+            <li>
+              <a
+                href={site.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                Instagram {site.instagramHandle}
+              </a>
+            </li>
+            <li>
+              <a
+                href={site.doctoralia}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                Doctoralia
+              </a>
+            </li>
           </ul>
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-mint">
-            Horários
+          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-cream/70">
+            Dados da empresa
           </h2>
-          <ul className="mt-4 space-y-2 text-sm text-white/85">
-            {site.hours.map((item) => (
-              <li key={item.day}>
-                <span className="block font-medium text-white">{item.day}</span>
-                {item.time}
-              </li>
-            ))}
+          <ul className="mt-4 space-y-2 text-sm leading-relaxed text-cream/90">
+            <li>{site.legalName}</li>
+            <li>CNPJ {site.cnpj}</li>
+            <li>{site.address.full}</li>
           </ul>
-          <p className="mt-4 text-xs text-white/60">
-            CNPJ {site.cnpj}
-            <br />
-            {site.legalName}
-          </p>
         </div>
       </div>
 
-      <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 text-xs text-white/60 sm:px-5 md:flex-row md:items-center md:justify-between md:px-8">
-          <p>© 2026 {site.name}. Todos os direitos reservados.</p>
+      <div className="border-t border-cream/10">
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 text-xs text-cream/70 sm:px-5 md:flex-row md:items-center md:justify-between md:px-8">
+          <p>
+            © {year} {site.name}. Todos os direitos reservados.
+          </p>
           <nav aria-label="Documentos legais">
-            <ul className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-4">
+            <ul className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-4 sm:gap-y-2">
               {legal.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="hover:text-mint">
+                  <Link
+                    href={item.href}
+                    className="inline-flex min-h-10 items-center underline-offset-4 hover:text-cream hover:underline"
+                  >
                     {item.label}
                   </Link>
                 </li>
@@ -104,9 +134,11 @@ export function Footer() {
             </ul>
           </nav>
         </div>
-        <p className="mx-auto max-w-6xl px-4 pb-8 text-xs leading-relaxed text-white/45 sm:px-5 md:px-8">
-          Conteúdo informativo. Não substitui consulta médica. Não utilizamos
-          avaliações fabricadas nem promessas de resultado. {site.imageCredits}
+        <p className="mx-auto max-w-6xl px-4 pb-8 text-xs leading-relaxed text-cream/55 sm:px-5 md:px-8">
+          Este site tem caráter informativo e não substitui consulta, diagnóstico
+          ou tratamento médico. Não utilizamos avaliações fabricadas nem
+          promessas de resultado. A identidade visual e o logotipo pertencem à
+          Clínica Mundi. {site.imageCredits}
         </p>
       </div>
     </footer>

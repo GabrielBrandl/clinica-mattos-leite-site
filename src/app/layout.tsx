@@ -25,14 +25,17 @@ const body = Source_Sans_3({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} | ${site.tagline}`,
+    default: `${site.name} | Cardiologia e Pediatria em Manaus`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
   keywords: [...site.keywords],
   authors: [{ name: site.name }],
+  creator: site.name,
+  publisher: site.legalName,
+  category: "health",
   openGraph: {
-    title: `${site.name} | ${site.tagline}`,
+    title: `${site.name} | Cardiologia e Pediatria em Manaus`,
     description: site.description,
     locale: "pt_BR",
     type: "website",
@@ -40,32 +43,45 @@ export const metadata: Metadata = {
     siteName: site.name,
     images: [
       {
-        url: "/images/dra-fabia.jpg",
-        width: 800,
-        height: 1000,
-        alt: "Dra. Fábia Mattos — Clínica Mattos Leite",
+        url: "/images/hero.jpg",
+        width: 2000,
+        height: 1333,
+        alt: `${site.name} — ambiente clínico em Manaus`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} | ${site.tagline}`,
+    title: `${site.name} | Cardiologia e Pediatria em Manaus`,
     description: site.description,
-    images: ["/images/dra-fabia.jpg"],
+    images: ["/images/hero.jpg"],
   },
-  robots: { index: true, follow: true },
-  icons: {
-    icon: "/favicon-mattos.png",
-    apple: "/favicon-mattos.png",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+  },
+  appleWebApp: {
+    capable: true,
+    title: site.name,
+    statusBarStyle: "default",
+  },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#002B45",
+  themeColor: "#556b2f",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

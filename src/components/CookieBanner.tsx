@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type Consent = "accepted" | "rejected" | null;
-const STORAGE_KEY = "mattos-cookie-consent";
+
+const STORAGE_KEY = "mundi-cookie-consent";
 
 export function CookieBanner() {
   const [consent, setConsent] = useState<Consent>(null);
@@ -14,7 +15,9 @@ export function CookieBanner() {
     const saved = window.localStorage.getItem(STORAGE_KEY) as Consent | null;
     if (saved === "accepted" || saved === "rejected") {
       setConsent(saved);
-      window.dispatchEvent(new CustomEvent("mundi-consent", { detail: saved }));
+      window.dispatchEvent(
+        new CustomEvent("mundi-consent", { detail: saved }),
+      );
     }
     setReady(true);
   }, []);
@@ -30,36 +33,43 @@ export function CookieBanner() {
   return (
     <div
       role="dialog"
+      aria-live="polite"
       aria-label="Aviso de cookies"
-      className="cookie-safe fixed inset-x-0 bottom-0 z-[60] border-t border-navy-900/15 bg-surface/97 px-4 py-3 shadow-[0_-8px_30px_rgba(0,43,69,0.12)] backdrop-blur-md md:p-5"
+      className="cookie-safe fixed inset-x-0 bottom-0 z-[60] border-t border-olive-700/20 bg-surface/97 px-4 py-3 shadow-[0_-8px_30px_rgba(42,51,24,0.12)] backdrop-blur-md sm:p-4 md:p-5"
     >
-      <div className="mx-auto flex max-w-6xl flex-col gap-3 md:flex-row md:items-end md:justify-between">
+      <div className="mx-auto flex max-w-6xl flex-col gap-3 md:flex-row md:items-end md:justify-between md:gap-4">
         <div className="max-w-3xl">
-          <p className="font-serif text-lg text-navy-900">Cookies e privacidade</p>
-          <p className="mt-1.5 text-[0.8125rem] leading-snug text-ink-muted sm:text-sm">
-            Usamos cookies essenciais. Analytics só com consentimento (LGPD).{" "}
-            <Link href="/cookies" className="font-medium text-navy-800 underline">
+          <p className="font-serif text-base text-olive-900 sm:text-xl">
+            Cookies e privacidade
+          </p>
+          <p className="mt-1.5 text-[0.8125rem] leading-snug text-ink-muted sm:mt-2 sm:text-sm sm:leading-relaxed">
+            Usamos cookies essenciais para o site. Analytics só com
+            consentimento (LGPD).{" "}
+            <Link href="/cookies" className="font-medium text-olive-800 underline">
               Cookies
             </Link>{" "}
             ·{" "}
-            <Link href="/privacidade" className="font-medium text-navy-800 underline">
+            <Link
+              href="/privacidade"
+              className="font-medium text-olive-800 underline"
+            >
               Privacidade
             </Link>
             .
           </p>
         </div>
-        <div className="grid w-full grid-cols-2 gap-2 md:flex md:w-auto">
+        <div className="grid w-full grid-cols-2 gap-2 md:flex md:w-auto md:flex-wrap">
           <button
             type="button"
             onClick={() => save("rejected")}
-            className="touch-target rounded-sm border border-navy-900/20 px-3 py-3 text-sm font-semibold text-navy-900"
+            className="touch-target rounded-sm border border-olive-700/30 px-3 py-3 text-sm font-semibold text-olive-900 transition hover:bg-cream-deep sm:px-4"
           >
             Só essenciais
           </button>
           <button
             type="button"
             onClick={() => save("accepted")}
-            className="touch-target rounded-sm bg-navy-900 px-3 py-3 text-sm font-semibold text-white"
+            className="touch-target rounded-sm bg-olive-800 px-3 py-3 text-sm font-semibold text-cream transition hover:bg-olive-700 sm:px-4"
           >
             Aceitar analytics
           </button>

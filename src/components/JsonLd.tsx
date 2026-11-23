@@ -7,8 +7,8 @@ export function ClinicJsonLd() {
     name: site.name,
     alternateName: site.legalName,
     url: site.url,
-    logo: `${site.url}/logo-principal.png`,
-    image: `${site.url}/images/dra-fabia.jpg`,
+    logo: `${site.url}/logo.png`,
+    image: `${site.url}/images/hero.jpg`,
     description: site.description,
     telephone: `+${site.phoneE164}`,
     email: site.email,
@@ -16,8 +16,9 @@ export function ClinicJsonLd() {
     taxID: site.cnpj,
     medicalSpecialty: [
       "Pediatrics",
-      "Nutrition",
-      "Preventive",
+      "Cardiology",
+      "Geriatric",
+      "Gynecologic",
     ],
     address: {
       "@type": "PostalAddress",
@@ -32,18 +33,19 @@ export function ClinicJsonLd() {
       latitude: site.address.lat,
       longitude: site.address.lng,
     },
+    sameAs: [site.instagram, site.doctoralia],
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday"],
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+        ],
         opens: "08:00",
         closes: "18:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Friday",
-        opens: "08:00",
-        closes: "12:00",
       },
     ],
   };
@@ -77,11 +79,17 @@ export function BlogPostJsonLd({
     image: `${site.url}${image}`,
     datePublished: date,
     dateModified: date,
-    author: { "@type": "Organization", name: site.name },
+    author: {
+      "@type": "Organization",
+      name: site.name,
+    },
     publisher: {
       "@type": "Organization",
       name: site.name,
-      logo: { "@type": "ImageObject", url: `${site.url}/logo-principal.png` },
+      logo: {
+        "@type": "ImageObject",
+        url: `${site.url}/logo.png`,
+      },
     },
     mainEntityOfPage: url,
     inLanguage: "pt-BR",
@@ -106,7 +114,10 @@ export function FaqJsonLd({
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.q,
-      acceptedAnswer: { "@type": "Answer", text: item.a },
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
     })),
   };
 

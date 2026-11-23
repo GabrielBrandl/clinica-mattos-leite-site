@@ -6,53 +6,91 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Agendar consulta",
-  description: `Agende consulta na ${site.name}. Seg–Qui 8h–18h, Sex 8h–12h. Adrianópolis, Manaus.`,
+  description:
+    "Solicite agendamento de consulta de Cardiologia ou Pediatria na Clínica Mundi, Manaus. Retorno pelo WhatsApp com confirmação de horário.",
   alternates: { canonical: "/agendar" },
+  openGraph: {
+    title: "Agendar consulta | Clínica Mundi",
+    description:
+      "Escolha especialidade, data preferencial e envie sua solicitação com segurança (LGPD).",
+    images: [{ url: "/images/consulta.jpg", alt: "Consulta médica" }],
+  },
 };
+
+function BookingFallback() {
+  return (
+    <div className="border border-olive-700/15 bg-surface p-8 text-sm text-ink-muted">
+      Carregando formulário de agendamento…
+    </div>
+  );
+}
 
 export default function AgendarPage() {
   return (
     <div>
-      <section className="hero-navy text-white">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-5 md:px-8">
-          <Image
-            src="/logo-secundaria.png"
-            alt=""
-            width={200}
-            height={50}
-            className="mb-6 h-10 w-auto object-contain opacity-90"
-          />
-          <h1 className="font-serif text-4xl md:text-6xl">Solicite sua consulta</h1>
-          <p className="mt-4 max-w-2xl text-white/80">
-            Seg–Qui 8h–18h · Sex 8h–12h · Fechado fins de semana e feriados.
+      <section className="relative overflow-hidden text-cream">
+        <Image
+          src="/images/consulta.jpg"
+          alt="Ambiente preparado para consulta médica"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-olive-950/78" />
+        <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-5 sm:py-20 md:px-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cream/75">
+            Agendamento
+          </p>
+          <h1 className="mt-3 max-w-3xl font-serif text-4xl md:text-6xl">
+            Solicite sua consulta
+          </h1>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-cream/85 md:text-lg">
+            Preencha o formulário em 2 passos. Coletamos só o necessário para
+            confirmar disponibilidade e retornar pelo WhatsApp.
           </p>
         </div>
       </section>
+
       <section className="section-pad mx-auto grid max-w-6xl gap-10 px-4 sm:px-5 md:grid-cols-[1fr_0.85fr] md:px-8">
-        <Suspense
-          fallback={
-            <div className="border border-navy-900/10 p-8 text-sm text-ink-muted">
-              Carregando formulário…
-            </div>
-          }
-        >
+        <Suspense fallback={<BookingFallback />}>
           <BookingForm />
         </Suspense>
-        <aside className="space-y-5">
-          <div className="bg-navy-900 p-6 text-white">
-            <h2 className="font-serif text-2xl">Horários oficiais</h2>
-            <ul className="mt-4 space-y-2 text-sm text-white/85">
-              {site.hours.map((h) => (
-                <li key={h.day}>
-                  <strong className="text-mint">{h.day}:</strong> {h.time}
-                </li>
-              ))}
-            </ul>
+
+        <aside className="space-y-6">
+          <div className="border border-olive-700/15 bg-olive-950 p-6 text-cream">
+            <h2 className="font-serif text-2xl">Como funciona</h2>
+            <ol className="mt-4 list-decimal space-y-3 pl-5 text-sm leading-relaxed text-cream/85">
+              <li>Escolha Cardiologia ou Pediatria</li>
+              <li>Informe data e período preferenciais</li>
+              <li>Enviamos a solicitação ao WhatsApp da clínica</li>
+              <li>Confirmamos o horário conforme agenda</li>
+            </ol>
           </div>
-          <div className="border border-navy-900/10 p-6 text-sm text-ink-muted">
-            <p>WhatsApp {site.phoneDisplay}</p>
-            <p className="mt-2 break-all">{site.email}</p>
-            <p className="mt-2">{site.address.full}</p>
+          <div className="border border-olive-700/15 bg-surface p-6">
+            <h2 className="font-serif text-2xl text-olive-950">Horários</h2>
+            <dl className="mt-4 space-y-2 text-sm">
+              {site.hours.map((item) => (
+                <div
+                  key={item.day}
+                  className="flex justify-between gap-3 border-b border-olive-700/10 py-2"
+                >
+                  <dt className="font-medium text-ink">{item.day}</dt>
+                  <dd className="text-ink-muted">{item.time}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-4 text-sm text-ink-muted">
+              Telefone: {site.phoneDisplay}
+              <br />
+              E-mail: {site.email}
+            </p>
+          </div>
+          <div className="border border-olive-700/15 bg-cream-soft p-6 text-sm leading-relaxed text-ink-muted">
+            <p>
+              Este formulário não realiza confirmação automática de agenda. A
+              confirmação depende da disponibilidade da equipe médica.
+            </p>
           </div>
         </aside>
       </section>

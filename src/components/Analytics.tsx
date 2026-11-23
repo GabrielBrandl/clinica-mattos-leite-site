@@ -12,7 +12,7 @@ export function Analytics() {
   const [allowed, setAllowed] = useState(false);
 
   useEffect(() => {
-    const current = window.localStorage.getItem("mattos-cookie-consent");
+    const current = window.localStorage.getItem("mundi-cookie-consent");
     if (current === "accepted") setAllowed(true);
 
     function onConsent(event: Event) {
